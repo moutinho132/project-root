@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product-service-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/store/v1/api/products/**
+      default-filters:
+        - AddRequestHeader=X-Forwarded-Host, localhost:8088
+  security:
+    user:
+      name: admin
+      password: admin123
+
+server:
+  port: 8088

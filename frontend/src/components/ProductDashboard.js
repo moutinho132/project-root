@@ -29,6 +29,7 @@ const ProductDashboard = () => {
     };
     
 
+    // Función para manejar la eliminación de un producto
     const handleDeleteProduct = async (productId) => {
         try {
             await api.delete(`/${productId}`);
@@ -37,23 +38,40 @@ const ProductDashboard = () => {
             console.error('Error al eliminar el producto:', error);
         }
     };
+    const handleUpdateProduct = async (updatedProduct) => {
+        try {
+            const response = await api.put(`/${updatedProduct.id}`, updatedProduct);
+            setProducts((prevProducts) =>
+                prevProducts.map((product) =>
+                    product.id === updatedProduct.id ? response.data : product
+                )
+            );
+        } catch (error) {
+            console.error('Error al actualizar el producto:', error);
+        }
+    };
+    
 
     useEffect(() => {
         fetchProducts();
     }, []);
 
     return (
-        <div>
-            <h1>Gestión de Productos</h1>
+        <div className="container mt-5">
+            <h1 className="mb-4">Gestión de Productos</h1>
             {/* Componente para crear un nuevo producto */}
             <CreateProduct onCreate={handleCreateProduct} />
+
             
-            {/* Mostrar un indicador de carga mientras se obtienen los datos */}
+
             {isLoading ? (
                 <p>Cargando productos...</p>
             ) : (
                 // Tabla con las acciones para los productos
-                <ProductTable products={products} onDelete={handleDeleteProduct} />
+                <ProductTable
+                    products={products}
+                    onDelete={handleDeleteProduct}
+                />
             )}
         </div>
     );

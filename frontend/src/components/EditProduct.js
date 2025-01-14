@@ -1,59 +1,57 @@
 import React, { useState } from 'react';
 
-const CreateProduct = ({ onCreate }) => {
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [status, setStatus] = useState('');
+const EditProduct = ({ product, onUpdate }) => {
+    const [name, setName] = useState(product.name);
+    const [price, setPrice] = useState(product.price);
+    const [status, setStatus] = useState(product.status);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const newProduct = { name, price, status };
-        onCreate(newProduct);
-
-        setName('');
-        setPrice('');
-        setStatus('');
+        const updatedProduct = {
+            id: product.id,
+            name,
+            price,
+            status
+        };
+        onUpdate(updatedProduct);
     };
 
     return (
         <form onSubmit={handleSubmit} className="mb-4">
             <div className="form-group">
-                <label htmlFor="productName">Nombre del Producto</label>
+                <label htmlFor="editProductName">Nombre del Producto</label>
                 <input
                     type="text"
                     className="form-control"
-                    id="productName"
+                    id="editProductName"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Nombre del producto"
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="productPrice">Precio</label>
+                <label htmlFor="editProductPrice">Precio</label>
                 <input
                     type="number"
                     className="form-control"
-                    id="productPrice"
+                    id="editProductPrice"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     placeholder="Precio"
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="productStatus">Estado</label>
+                <label htmlFor="editProductStatus">Estado</label>
                 <select
                     className="form-control"
-                    id="productStatus"
+                    id="editProductStatus"
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}>
                     <option value="activo">Activo</option>
                     <option value="inactivo">Inactivo</option>
                 </select>
             </div>
-            <button type="submit" className="btn btn-primary">Crear Producto</button>
+            <button type="submit" className="btn btn-warning">Actualizar Producto</button>
         </form>
     );
 };
-
-export default CreateProduct;

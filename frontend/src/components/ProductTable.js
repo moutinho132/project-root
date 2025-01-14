@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ProductTable = ({ products, onDelete }) => {
+const ProductTable = ({ products, onDelete, onUpdate }) => {
     return (
-        <table>
-            <thead>
+        <table className="table table-bordered">
+            <thead className="thead-dark">
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -20,8 +20,16 @@ const ProductTable = ({ products, onDelete }) => {
                         <td>{product.price}</td>
                         <td>{product.status}</td>
                         <td>
-                            <button onClick={() => onDelete(product.id)}>Eliminar</button>
-                            {/* Añadir otros botones como "Editar" o "Detalles" */}
+                            <button 
+                                className="btn btn-warning mr-2" 
+                                onClick={() => onUpdate(product)}>
+                                Editar
+                            </button>
+                            <button 
+                                className="btn btn-danger" 
+                                onClick={() => onDelete(product.id)}>
+                                Eliminar
+                            </button>
                         </td>
                     </tr>
                 ))}
@@ -29,5 +37,6 @@ const ProductTable = ({ products, onDelete }) => {
         </table>
     );
 };
+
 
 export default ProductTable;
