@@ -1,5 +1,7 @@
 package com.store.microservice.application.service;
 
+import com.store.microservice.application.exceptions.ProductNotFoundException;
+import com.store.microservice.application.exceptions.ResourceNotFoundException;
 import com.store.microservice.domain.model.Product;
 import com.store.microservice.domain.ports.ProductRepositoryPort;
 import com.store.microservice.domain.ports.ProductServicePort;
@@ -23,7 +25,7 @@ public class ProductService implements ProductServicePort {
 
     @Override
     public Product getProductById(String id) {
-        return productRepositoryPort.findById(id).orElse(null);
+        return productRepositoryPort.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     @Override
