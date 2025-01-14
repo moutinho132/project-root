@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @Operation(summary = "Crear un nuevo producto", description = "Crea un nuevo producto en la base de datos")
+    @Operation(summary = "Crear o actualizar un producto", description = "Crea un nuevo producto en la base de datos o actualiza uno existente")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         Product product = productMapper.fomDtoToEntity(productDTO);
         return ResponseEntity.ok(productMapper.fromEntityToDto(productService.createProduct(product)));

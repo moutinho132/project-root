@@ -1,59 +1,53 @@
 import React, { useState } from 'react';
+import ProductTable from './ProductTable';
+import CreateProductModal from './CreateProductModal';
 
-const CreateProduct = ({ onCreate }) => {
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [status, setStatus] = useState('');
+const App = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [products, setProducts] = useState([
+        { id: 1, name: 'Producto 1', price: 100, status: 'activo' },
+        { id: 2, name: 'Producto 2', price: 200, status: 'inactivo' },
+    ]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleCreateOrUpdate = (product) => {
+        if (selectedProduct) {
+            console.log('Actualizando producto:', product);
+        } else {
+            console.log('Creando producto:', product);
+        }
+    };
 
-        const newProduct = { name, price, status };
-        onCreate(newProduct);
+    const handleOpenModal = (product = null) => {
+        setSelectedProduct(product); // Establecer el producto seleccionado para editar
+        setShowModal(true);
+    };
 
-        setName('');
-        setPrice('');
-        setStatus('');
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedProduct(null);
+    };
+
+    const handleDelete = (id) => {
+        setProducts(products.filter(product => product.id !== id));
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-4">
-            <div className="form-group">
-                <label htmlFor="productName">Nombre del Producto</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="productName"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Nombre del producto"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="productPrice">Precio</label>
-                <input
-                    type="number"
-                    className="form-control"
-                    id="productPrice"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Precio"
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="productStatus">Estado</label>
-                <select
-                    className="form-control"
-                    id="productStatus"
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}>
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
-                </select>
-            </div>
-            <button type="submit" className="btn btn-primary">Crear Producto</button>
-        </form>
+        <div className="container mt-5">
+            <ProductTable
+                products={products}
+                onDelete={handleDelete}
+                onEdit={handleOpenModal}  
+            />
+            
+            <CreateProductModal
+                show={showModal}
+                onClose={handleCloseModal}
+                onSave={handleCreateOrUpdate}
+                product={selectedProduct}
+            />
+        </div>
     );
 };
 
-export default CreateProduct;
+export default App;

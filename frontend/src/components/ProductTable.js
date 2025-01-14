@@ -1,11 +1,10 @@
 import React from 'react';
 
-const ProductTable = ({ products, onDelete, onUpdate }) => {
+const ProductTable = ({ products, onDelete, onEdit }) => {
     return (
-        <table className="table table-bordered">
-            <thead className="thead-dark">
+        <table className="table table-striped">
+            <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Estado</th>
@@ -15,19 +14,20 @@ const ProductTable = ({ products, onDelete, onUpdate }) => {
             <tbody>
                 {products.map((product) => (
                     <tr key={product.id}>
-                        <td>{product.id}</td>
                         <td>{product.name}</td>
                         <td>{product.price}</td>
                         <td>{product.status}</td>
                         <td>
-                            <button 
-                                className="btn btn-warning mr-2" 
-                                onClick={() => onUpdate(product)}>
+                            <button
+                                className="btn btn-warning me-2"
+                                onClick={() => onEdit(product)} 
+                            >
                                 Editar
                             </button>
-                            <button 
-                                className="btn btn-danger" 
-                                onClick={() => onDelete(product.id)}>
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => onDelete(product.id)}
+                            >
                                 Eliminar
                             </button>
                         </td>
@@ -37,6 +37,5 @@ const ProductTable = ({ products, onDelete, onUpdate }) => {
         </table>
     );
 };
-
 
 export default ProductTable;
