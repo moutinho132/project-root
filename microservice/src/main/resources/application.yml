@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /store/v1
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/store
+      auto-index-creation: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+logging:
+  level:
+    web: 'INFO'
+    com:
+      store:
+        microservice:
+          store: 'INFO'
