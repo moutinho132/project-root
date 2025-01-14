@@ -1,7 +1,10 @@
 package com.store.microservice.application.exceptions;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public class ErrorDetails {
     private LocalDateTime timestamp;
     private String message;
@@ -11,18 +14,5 @@ public class ErrorDetails {
         this.timestamp = timestamp;
         this.message = message;
         this.details = details;
-    }
-
-    // Getters y setters
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDetails() {
-        return details;
     }
 }

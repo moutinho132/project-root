@@ -35,6 +35,15 @@ public class MongoProductRepository implements ProductRepositoryPort {
     public void deleteById(String id) {
         repository.deleteById(id);
     }
+    @Override
+    public boolean existsById(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public Product update(Product product) {
+        return repository.save(product);
+    }
 }
 
 interface SpringDataMongoRepository extends org.springframework.data.mongodb.repository.MongoRepository<Product, String> {
