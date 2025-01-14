@@ -3,11 +3,19 @@ spring:
     gateway:
       routes:
         - id: product-service-route
-          uri: http://localhost:8080
+          uri: http://microservice:8080
           predicates:
             - Path=/store/v1/api/products/**
       default-filters:
         - AddRequestHeader=X-Forwarded-Host, localhost:8088
+        - AddRequestHeader=X-Forwarded-Server, localhost
+        - AddRequestHeader=X-Forwarded-Port, 8088
+        - AddRequestHeader=X-Forwarded-For, 127.0.0.1
+  application:
+    name: gateway
+  config:
+    import: optional:configserver:http://localhost:8888
+    fail-fast: true
   security:
     user:
       name: admin

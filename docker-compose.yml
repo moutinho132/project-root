@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3'
 services:
   microservice:
     build:
@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongodb
     networks:
-      - app-network
+      - mynetwork
 
   frontend:
     build:
@@ -18,18 +18,18 @@ services:
     ports:
       - "3000:80"
     networks:
-      - app-network
+      - mynetwork
 
   api-gateway:
     build:
-      context: ./api-gateway
+      context: ./apigateway
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "8088:8088"
     depends_on:
       - microservice
     networks:
-      - app-network
+      - mynetwork
 
   mongodb:
     image: mongo:6
@@ -39,11 +39,11 @@ services:
     volumes:
       - mongo-data:/data/db
     networks:
-      - app-network
+      - mynetwork
 
 volumes:
   mongo-data:
 
 networks:
-  app-network:
+  mynetwork:
     driver: bridge

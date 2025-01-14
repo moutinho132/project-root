@@ -19,7 +19,7 @@ const App = () => {
     };
 
     const handleOpenModal = (product = null) => {
-        setSelectedProduct(product); // Establecer el producto seleccionado para editar
+        setSelectedProduct(product); 
         setShowModal(true);
     };
 
